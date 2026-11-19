@@ -1,18 +1,19 @@
 name: bootstrap
 on:
   push:
-    paths: ['rv.b64']
+    branches: [main]
 permissions:
   contents: write
 jobs:
-  extract:
+  import:
+    if: ${{ !contains(github.event.head_commit.message, 'Royal Vega') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Extraer codigo
+      - name: Importar codigo
         run: |
-          base64 -d rv.b64 | tar xJf -
-          rm rv.b64
+          git fetch https://github.com/lu123zx/prueba royal-vega-src
+          git checkout FETCH_HEAD -- .
           git config user.name "Luis"
           git config user.email "lu123zx@users.noreply.github.com"
           git add -A
