@@ -1,0 +1,20 @@
+name: bootstrap
+on:
+  push:
+    paths: ['rv.tgz']
+permissions:
+  contents: write
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extraer codigo
+        run: |
+          tar xzf rv.tgz
+          rm rv.tgz
+          git config user.name "Luis"
+          git config user.email "lu123zx@users.noreply.github.com"
+          git add -A
+          git commit -m "Royal Vega: casino privado con Supabase"
+          git push
