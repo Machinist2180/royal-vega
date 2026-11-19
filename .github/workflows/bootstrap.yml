@@ -1,7 +1,7 @@
 name: bootstrap
 on:
   push:
-    paths: ['rv.tgz']
+    paths: ['rv.b64']
 permissions:
   contents: write
 jobs:
@@ -11,8 +11,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Extraer codigo
         run: |
-          tar xzf rv.tgz
-          rm rv.tgz
+          base64 -d rv.b64 | tar xJf -
+          rm rv.b64
           git config user.name "Luis"
           git config user.email "lu123zx@users.noreply.github.com"
           git add -A
